@@ -1,0 +1,148 @@
+---
+title: "Advanced Statistical Methods HW3"
+author: "2021-21116 Taeyoung Chang"
+date: "10/3/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+<br>
+
+### Exercise 4.2
+
+![](./images/exer4.2.png)
+
+![](./images/graph_loglikelihood1.jpg)
+
+![](./images/graph_loglikelihood2.jpg)
+
+Since loglikelihood $l_x(\theta)$ is typically concave, we can draw a schematic graph of $l_x(\theta)$ as a concave function of $\theta$ which has a maximum value at $\theta=\hat\theta^{MLE}$. Near $\hat\theta^{MLE}$, $\dot{l}_x(\theta)$ has positive value at $\theta<\hat\theta^{MLE}$, negaive value at $\theta>\hat\theta^{MLE}$, and zero value at $\theta=\hat\theta^{MLE}$ as drawn in the first figure. Now, from the second figure, we can justify (4.25) $$\hat\theta^{MLE}\dot{=}\;\theta+\frac{\dot {l}_x(\theta)}{-\ddot{l}_x(\theta)} $$
+The slope of $\dot{l}_x(\theta)$ is $\ddot{l}_x(\theta)$, which can be approximated by $$\ddot{l}_x(\theta)\dot{=}\;\frac{\dot{l}_x(\theta)}{\theta-\hat\theta^{MLE}} \quad \because \; \dot{l}_x(\hat\theta^{MLE})=0$$
+By multiplying $\theta-\hat\theta^{MLE}$  and dividing by $\ddot{l}_x(\theta)$ on both sides, we get the desired result.
+
+<br>
+
+### Exercise 4.3
+
+![](./images/exer4.3.png)
+
+let $x=(x_1, x_2)$ . $$I(\theta)=E\Big[\big(\frac{\partial}{\partial\theta}\log f(x;\theta)\big)^2 \Big]=-E\Big[\frac{\partial^2}{\partial\theta^2}\log f(x;\theta) \Big]=-E\Big[\frac{\partial^2}{\partial\theta^2}\log f(x_1;\theta) \Big]-E\Big[\frac{\partial^2}{\partial\theta^2}\log f(x_2;\theta) \Big] \quad \because\; x_1, x_2\quad independent$$
+
+We can analytically derive a closed form of $I(\theta)$ and Cramer-Rao lower bound which is $I(\theta)^{-1}$
+
+$$ 
+\begin{align*}
+  f(x_1;\theta)&=\binom{20}{x_1}\theta^{x_1}(1-\theta)^{20-x_1} \\
+  \log f(x_1;\theta)&= \log\binom{20}{x_1}+x_1\log\theta+(20-x_1)\log(1-\theta) \\
+  \frac{\partial}{\partial\theta}\log f(x_1;\theta)&=\frac{x_1}{\theta}-\frac{20-x_1}{1-\theta} \\
+  \frac{\partial^2}{\partial\theta^2}\log f(x_1;\theta)&=-\frac{x_1}{\theta^2}-\frac{20-x_1}{(1-\theta)^2} \\
+  -E\Big[\frac{\partial^2}{\partial\theta^2}\log f(x_1;\theta) \Big]&=\frac{20\theta}{\theta^2}+\frac{20(1-\theta)}{(1-\theta)^2}=\frac{20}{\theta(1-\theta)}\\
+  f(x_2;\theta)&=\frac{e^{-10\theta}(10\theta)^{x_2}}{x_2!} \\
+  \log  f(x_2;\theta)&= -10\theta+x_2\log(10\theta)-\log x_2! \\
+  \frac{\partial}{\partial\theta}\log  f(x_2;\theta)&=-10 +\frac{x_2}{\theta} \\
+  \frac{\partial^2}{\partial\theta^2}\log  f(x_2;\theta)&=-\frac{x_2}{\theta^2}\\
+  -E\Big[\frac{\partial^2}{\partial\theta^2}\log f(x_1;\theta) \Big]&=\frac{10\theta}{\theta^2}=\frac{10}{\theta}
+\end{align*}
+$$
+Hence we have 
+$$
+I(\theta)= \frac{20}{\theta(1-\theta)}+\frac{10}{\theta}=\frac{10(3-\theta)}{\theta(1-\theta)} \\ CRLB(\theta)=\frac{1}{I(\theta)}=\frac{\theta(1-\theta)}{10(3-\theta)} 
+$$
+
+Now we have to numerically compute CRLB given observed data $x_1$ and $x_2$. We shall find $\hat\theta^{MLE}$ and then CRLB can be computed as $CRLB(\hat\theta^{MLE})$ or $1/I(x)$ where 
+$$
+I(x)= -\frac{\partial^2}{\partial\theta^2}\log  f(x;\theta) \Big|_{\theta=\hat\theta^{MLE}} =-\Big(-\frac{x_1}{\theta^2}-\frac{20-x_1}{(1-\theta)^2}-\frac{x_2}{\theta^2}\Big)\;\Big|_{\theta=\hat\theta^{MLE}}=\frac{x_1+x_2}{\theta^2}+\frac{20-x_1}{(1-\theta)^2}\;\Big |_{\theta=\hat\theta^{MLE}}
+$$ 
+is an observed Fisher information.  
+We shall now consider an algorithm to find $\hat\theta^{MLE}$ numerically.
+$$
+\begin{align*}
+  \dot{l}_x(\theta)&=\frac{x_1}{\theta}-\frac{20-x_1}{1-\theta}-10 +\frac{x_2}{\theta}=\frac{x_1+x_2}{\theta}-\frac{20-x_1}{1-\theta}-10 \\
+  \ddot{l}_x(\theta)&=-\frac{x_1+x_2}{\theta^2}-\frac{20-x_1}{(1-\theta)^2}<0\quad \;\forall\;0<\theta<1 \\
+  \dot{l}_x(\theta)&=0 \Leftrightarrow (1-\theta)(x_1+x_2)-\theta(20-x_1)-10\theta(1-\theta)=0\Leftrightarrow 10\theta^2-(30+x_2)\theta+(x_1+x_2)=0
+\end{align*}  
+$$
+Define a function $g$ by 
+$$
+g(\theta)=10\theta^2-(30+x_2)\theta+(x_1+x_2)=10\Big(\theta-\frac{30+x_2}{20} \Big)^2+constant
+$$
+
+Note that $\dot{l}_x(\theta)=0\Leftrightarrow g(\theta)=0$ on $\theta\in (0,1)$. Hence, if we can find a solution $\theta\in(0,1)$ of $g(\theta)=0$, then it is a solution of likelihood equation so that it is $\hat\theta^{MLE}$. Note that since $\frac{30+x_2}{20}>1.5$, by the shape of $g$, $g(\theta)=0$ must have a root bigger than 1.5 , which implies that we should guide the algorithm to do not find a solution outside of desired area $(0,1)$.  
+Here we can show an algorithm to find $\hat\theta^{MLE}$. To generate a sample $x_1, x_2$, we set a true value of $\theta$ as $0.7$. To find a solution $\theta$ in $(0,1)$, we shall use Dekker's method which is a combination of bisection method and secant method.
+```{r}
+
+theta=0.7
+
+set.seed(100)
+x1=rbinom(1, size=20, prob=theta)
+x2=rpois(1, lambda=10*theta)
+print(c(x1, x2))
+
+```
+```{r}
+# error tolerance value for terminating the alogirthm
+tol=1e-8
+
+# function g defined above
+g=function(theta, x1, x2){
+  10*theta^2-(30+x2)*theta+(x1+x2)
+}
+
+library(seqinr) # To use 'swap' function
+
+mix_mle<-function(x1,x2, tol){
+  # Starting value of [a,b] for the method is [0,1]
+  # Note that g(0)=x1+x2 and g(1)=x1-20 so that g(0)>=0 and g(1)<=0
+  # This satisfies the starting condition for bisection method
+  a=0
+  theta.past=a
+  theta.current=1
+  while(TRUE){
+    # g'(theta) is replaced by this ratio, which is a strategy of the secant method
+    ratio = (g(theta.current, x1,x2)-g(theta.past, x1,x2)) / (theta.current-theta.past)
+    # middle point of the current step [a,b]  
+    middle=(a + theta.current)/2
+    # new theta value proposal by secant method 
+    proposal = ifelse(g(theta.current, x1,x2)-g(theta.past, x1,x2)!=0,  theta.current-g(theta.current, x1,x2) / ratio , middle)
+     
+    # new theta is determined to be the proposal value or the middle point
+    if(middle<theta.current){
+      theta.new=ifelse(proposal<=theta.current & proposal>=middle, proposal, middle)
+    }
+    else{
+      theta.new=ifelse(proposal<=middle & proposal>=theta.current, proposal, middle)
+    }
+    # stops the alogorithm when |g(theta)| < error tolerance 
+    if(abs(g(theta.new,x1,x2))<tol ) break
+    # Update value of [a,b] to satisfy condition necessary for the bisection method
+    if(g(theta.new, x1, x2)*g(a, x1, x2)>0) a=theta.current
+    # If a accidentally attains |g(a)|<|g(theta)| then swap a and theta
+    if(abs(g(theta.new,x1,x2))>abs(g(a, x1,x2)) ) swap(a, theta.new)
+    
+    theta.past=theta.current
+    theta.current=theta.new
+
+  }
+  return(theta.new)
+}
+
+theta.hat=mix_mle(x1, x2, tol)
+theta.hat
+```
+
+Hence, with $\theta=0.7$, the sample $x_1=15, \, x_2=5$ is generated. From this sample, we calculate $\hat\theta^{MLE}=0.71922$ which is quite close to the true value of $\theta$.
+```{r}
+RCLB.true=theta*(1-theta)/(10*(3-theta))
+RCLB.plugin=theta.hat*(1-theta.hat)/(10*(3-theta.hat))
+obsinfo=(x1+x2)/theta.hat^2+(20-x1)/(1-theta.hat)^2
+RCLB.obsinfo=1/obsinfo
+print(cbind(RCLB.true, RCLB.plugin, RCLB.obsinfo))
+```
+
+We can check that `RCLB.plugin` and `RCLB.obsinfo`, which are the resulted computation for RCLB by our numerical method, are very close to the true value of Cramer Rao lower bound.
+
+
+

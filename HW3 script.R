@@ -1,4 +1,4 @@
-set.seed(123)
+set.seed(100)
 n=20
 x=rcauchy(n, location=0, scale=1)
 cauchy_lprime<-function(theta, x){
@@ -101,11 +101,97 @@ cauchy_mle<-function(x, tol){
 #   return(theta.new)
 # }
 
+set.seed(100)
+library(seqinr)
+cauchy_mle<-function(x, tol){
+  a = -(abs(median(x))+3)
+  theta.past = a
+  theta.current=abs(median(x))+3
+  while(cauchy_lprime(theta.past, x)*cauchy_lprime(theta.current, x )>0){
+    theta.past = theta.past + rnorm(1)
+    theta.current =  theta.current + rnorm(1)
+    a=theta.past
+    warning("the initial values does not saitsfy starting condition of bisection method. Shifting it a little...")
+  }
+  while(TRUE){
+    ratio = (cauchy_lprime(theta.current, x)-cauchy_lprime(theta.past, x)) / (theta.current-theta.past)
+    middle=(a + theta.current)/2
+    proposal = ifelse(cauchy_lprime(theta.current, x)-cauchy_lprime(theta.past, x) !=0 ,
+                      theta.current-cauchy_lprime(theta.current, x) / ratio, middle)
+    if(middle<theta.current){
+      theta.new=ifelse(proposal<=theta.current & proposal>=middle, proposal, middle)
+    }
+    else{
+      theta.new=ifelse(proposal<=middle & proposal>=theta.current, proposal, middle)
+    }
+    if(abs(cauchy_lprime(theta.new,x))<tol ) break
+    if(cauchy_lprime(theta.new, x)*cauchy_lprime(a, x) > 0) a=theta.current
+    if(abs(cauchy_lprime(theta.new,x)) > abs(cauchy_lprime(a, x)) ) swap(a, theta.new)
+    theta.past=theta.current
+    theta.current=theta.new
+    
+  }
+  return(theta.new)
+}
+
+# set.seed(100)
+# TorF=rep(0, N)
+# for(i in 1:N){
+#   x=rcauchy(n)
+#   TorF[i]=cauchy_lprime(abs(median(x))+3,x)*cauchy_lprime(-(abs(median(x))+3),x) < 0
+# }
+# table(TorF)
+# 
+# set.seed(100)
+# for(i in 1:N){
+#   x=rcauchy(n)
+#   if(i==2273){
+#     y=x
+#   }
+# }
+
+# 
+# cauchy_mle.detail<-function(x, tol){
+#   a = -(abs(median(x))+3)
+#   theta.past = a
+#   theta.current=abs(median(x))+3
+#   while(cauchy_lprime(theta.past, x)*cauchy_lprime(theta.current, x )>0){
+#     theta.past = theta.past + rnorm(1)
+#     theta.current =  theta.current + rnorm(1)
+#     a=theta.past
+#     print("the initial values does not saitsfy assumption of bisection method")
+#     print(c(a,theta.current))
+#     
+#   }
+#   while(TRUE){
+#     print(theta.current)
+#     ratio = (cauchy_lprime(theta.current, x)-cauchy_lprime(theta.past, x)) / (theta.current-theta.past)
+#     middle=(a + theta.current)/2
+#     proposal = ifelse(cauchy_lprime(theta.current, x)-cauchy_lprime(theta.past, x) !=0 ,
+#                       theta.current-cauchy_lprime(theta.current, x) / ratio, middle)
+#     print(proposal)
+#     print(middle)
+#     if(middle<theta.current){
+#       theta.new=ifelse(proposal<=theta.current & proposal>=middle, proposal, middle)
+#     }
+#     else{
+#       theta.new=ifelse(proposal<=middle & proposal>=theta.current, proposal, middle)
+#     }
+#     print(theta.new)
+#     if(abs(cauchy_lprime(theta.new,x))<tol ) break
+#     if(cauchy_lprime(theta.new, x)*cauchy_lprime(a, x) > 0) a=theta.current
+#     if(abs(cauchy_lprime(theta.new,x)) > abs(cauchy_lprime(a, x)) ) swap(a, theta.new)
+#     theta.past=theta.current
+#     theta.current=theta.new
+#     
+#   }
+#   return(theta.new)
+# }
 
 
 
 cauchy_mle(x, tol)
-
+cauchy_mle(y, tol)
 
 cauchy_obs_info_bound<-function(x){
   n=length(x)
@@ -122,10 +208,10 @@ X=matrix(0, ncol=2, nrow=N)
 colnames(X)<-c('MLE', 'Obs.Info.Bound')
 
 n=20
-set.seed(1)
+set.seed(123)
 
+library(tictoc)
 
-miss.count=0
 tic("simulation")
 for(i in 1:N){
   x=rcauchy(n, location=0, scale=1)
@@ -135,18 +221,18 @@ for(i in 1:N){
     while(abs(mle)>1e+03){
       x=rcauchy(n, location=0, scale=1)
       mle=cauchy_mle(x, tol)
-      if(abs(mle)>1e+03) miss.count = miss.count+1
     }
   }
   obs_info_bound = cauchy_obs_info_bound(x)
   X[i,]=c(mle, obs_info_bound)
 }
 toc()
-miss.count
+
 
 X=as.data.frame(X)
 X=X[order(X$Obs.Info.Bound),]
 head(X, 30)
+
 
 
 splitter<-function(X){
@@ -186,9 +272,8 @@ n=100
 X=matrix(0, ncol=2, nrow=N)
 colnames(X)<-c('MLE', 'Obs.Info.Bound')
 
-set.seed(1)
+set.seed(1124)
 
-miss.count=0
 tic("simulation")
 for(i in 1:N){
   x=rcauchy(n, location=0, scale=1)
@@ -198,14 +283,12 @@ for(i in 1:N){
     while(abs(mle)>1e+03){
       x=rcauchy(n, location=0, scale=1)
       mle=cauchy_mle(x, tol)
-      if(abs(mle)>1e+03) miss.count = miss.count+1
     }
   }
   obs_info_bound = cauchy_obs_info_bound(x)
   X[i,]=c(mle, obs_info_bound)
 }
 toc()
-miss.count
 
 X=as.data.frame(X)
 X=X[order(X$Obs.Info.Bound),]
@@ -233,22 +316,22 @@ abline(fit$coefficients, lty='dotted')
 
 theta=0.7
 
-set.seed(123)
+set.seed(100)
 x1=rbinom(1, size=20, prob=theta)
 x2=rpois(1, lambda=10*theta)
 RCLB=theta*(1-theta)/(10*(3-theta))
 
-# lprime=function(theta, x1,x2){
-#     (x1+x2)/theta-(20-x1)/(1-theta) -10  
-# }
-# lprime(theta, x1, x2)
-# 
-# ldprime=function(theta,x1, x2){
-#   -(x1+x2)/theta^2-(20-21)/(1-theta)^2
-# }
-# ldprime(theta, x1,x2)
+lprime=function(theta, x1,x2){
+    (x1+x2)/theta-(20-x1)/(1-theta) -10
+}
+lprime(theta, x1, x2)
 
-tol=1e-10
+ldprime=function(theta,x1, x2){
+  -(x1+x2)/theta^2-(20-21)/(1-theta)^2
+}
+ldprime(theta, x1,x2)
+
+tol=1e-8
 
 g=function(theta, x1, x2){
   10*theta^2-(30+x2)*theta+(x1+x2)
@@ -306,6 +389,8 @@ gprime=function(theta, x1, x2){
 #   return(theta.new)
 # }
 
+library(seqinr)
+
 mix_mle<-function(x1,x2, tol){
   #theta.past=(2*x1+x2)/20
   a=0
@@ -318,7 +403,7 @@ mix_mle<-function(x1,x2, tol){
     if(middle<theta.current){
       theta.new=ifelse(proposal<=theta.current & proposal>=middle, proposal, middle)
     }
-    if(middle>theta.current){
+    else{
       theta.new=ifelse(proposal<=middle & proposal>=theta.current, proposal, middle)
     }
     if(abs(g(theta.new,x1,x2))<tol ) break
@@ -326,10 +411,12 @@ mix_mle<-function(x1,x2, tol){
     if(abs(g(theta.new,x1,x2))>abs(g(a, x1,x2)) ) swap(a, theta.new)
     theta.past=theta.current
     theta.current=theta.new
-    
+
   }
   return(theta.new)
 }
+
+
 
 
 mix_mle(x1, x2, tol)
