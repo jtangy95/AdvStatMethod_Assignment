@@ -227,3 +227,111 @@ abline(fit$coefficients, lty='dotted')
 
 
 
+
+
+
+
+theta=0.7
+
+set.seed(123)
+x1=rbinom(1, size=20, prob=theta)
+x2=rpois(1, lambda=10*theta)
+RCLB=theta*(1-theta)/(10*(3-theta))
+
+# lprime=function(theta, x1,x2){
+#     (x1+x2)/theta-(20-x1)/(1-theta) -10  
+# }
+# lprime(theta, x1, x2)
+# 
+# ldprime=function(theta,x1, x2){
+#   -(x1+x2)/theta^2-(20-21)/(1-theta)^2
+# }
+# ldprime(theta, x1,x2)
+
+tol=1e-6
+
+g=function(theta, x1, x2){
+  10*theta^2-(30+x2)*theta+(x1+x2)
+}
+
+gprime=function(theta, x1, x2){
+  20*theta-(30+x2)
+}
+
+# mix_mle<-function(x1,x2, tol){
+#   theta.current=(2*x1+x2)/20
+#   while(TRUE){
+#     theta.new = theta.current - lprime(theta.current, x1,x2) / ldprime(theta.current, x1,x2)
+#     if(abs(lprime(theta.new,x1,x2))<tol ) break
+#     if(theta.new>1 | theta.new<0) {
+#       print("out of parameter sapce") 
+#       break
+#     }
+#     #if(abs(theta.new-theta.current)<tol) break
+#     theta.current = theta.new
+#   }
+#   return(theta.new)
+# }
+
+
+# mix_mle<-function(x1,x2, tol){
+#   theta.current=(2*x1+x2)/20
+#   while(TRUE){
+#     theta.new = theta.current - g(theta.current, x1,x2) / gprime(theta.current, x1,x2)
+#     if(abs(g(theta.new,x1,x2))<tol ) break
+#     if(theta.new>1 | theta.new<0) {
+#       print("out of parameter sapce")
+#       break
+#     }
+#     #if(abs(theta.new-theta.current)<tol) break
+#     theta.current = theta.new
+#   }
+#   return(theta.new)
+# }
+
+# mix_mle<-function(x1,x2, tol){
+#   theta.past=(2*x1+x2)/20
+#   theta.current=theta.past - g(theta.past, x1,x2) / gprime(theta.past, x1,x2)
+#   while(TRUE){
+#     ratio = (g(theta.current, x1,x2)-g(theta.past, x1,x2)) / (theta.current-theta.past)
+#     theta.new = theta.current-g(theta.current, x1,x2) / ratio
+#     if(abs(g(theta.new,x1,x2))<tol ) break
+#     if(theta.new>1 | theta.new<0) {
+#       print("out of parameter sapce")
+#       break
+#     }
+#     theta.past = theta.current
+#     theta.current = theta.new
+#   }
+#   return(theta.new)
+# }
+
+mix_mle<-function(x1,x2, tol){
+  #theta.past=(2*x1+x2)/20
+  a.current=0
+  theta.past=a.current
+  theta.current=1
+  while(TRUE){
+    ratio = (g(theta.current, x1,x2)-g(theta.past, x1,x2)) / (theta.current-theta.past)
+    proposal = theta.current-g(theta.current, x1,x2) / ratio
+    if(abs(g(theta.new,x1,x2))<tol ) break
+    if(theta.new>1 | theta.new<0) {
+      print("out of parameter sapce")
+      break
+    }
+    middle=(a.current+theta.current)/2
+    if(middle<theta.current){
+      ifelse(proposal<=theta.current & proposal>=middle, theta.new=proposal, theta.new=middle)
+    }
+    if(middle>theta.current){
+      ifelse(proposal<=middle & proposal>=theta.current, theta.new=proposal, theta.new=middle)
+    }
+    ifelse(g(theta.new, x1, x2)*g(a.current, x1, x2)<0, )
+  }
+  return(theta.new)
+}
+
+
+mix_mle(x1, x2, tol)
+
+
