@@ -248,7 +248,7 @@ RCLB=theta*(1-theta)/(10*(3-theta))
 # }
 # ldprime(theta, x1,x2)
 
-tol=1e-6
+tol=1e-10
 
 g=function(theta, x1, x2){
   10*theta^2-(30+x2)*theta+(x1+x2)
@@ -308,30 +308,29 @@ gprime=function(theta, x1, x2){
 
 mix_mle<-function(x1,x2, tol){
   #theta.past=(2*x1+x2)/20
-  a.current=0
-  theta.past=a.current
+  a=0
+  theta.past=a
   theta.current=1
   while(TRUE){
     ratio = (g(theta.current, x1,x2)-g(theta.past, x1,x2)) / (theta.current-theta.past)
     proposal = theta.current-g(theta.current, x1,x2) / ratio
-    if(abs(g(theta.new,x1,x2))<tol ) break
-    if(theta.new>1 | theta.new<0) {
-      print("out of parameter sapce")
-      break
-    }
-    middle=(a.current+theta.current)/2
+    middle=(a + theta.current)/2
     if(middle<theta.current){
-      ifelse(proposal<=theta.current & proposal>=middle, theta.new=proposal, theta.new=middle)
+      theta.new=ifelse(proposal<=theta.current & proposal>=middle, proposal, middle)
     }
     if(middle>theta.current){
-      ifelse(proposal<=middle & proposal>=theta.current, theta.new=proposal, theta.new=middle)
+      theta.new=ifelse(proposal<=middle & proposal>=theta.current, proposal, middle)
     }
-    ifelse(g(theta.new, x1, x2)*g(a.current, x1, x2)<0, )
+    if(abs(g(theta.new,x1,x2))<tol ) break
+    if(g(theta.new, x1, x2)*g(a, x1, x2)>0) a=theta.current
+    if(abs(g(theta.new,x1,x2))>abs(g(a, x1,x2)) ) swap(a, theta.new)
+    theta.past=theta.current
+    theta.current=theta.new
+    
   }
   return(theta.new)
 }
 
 
 mix_mle(x1, x2, tol)
-
 
