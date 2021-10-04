@@ -1,6 +1,7 @@
 set.seed(100)
 n=20
 x=rcauchy(n, location=0, scale=1)
+
 cauchy_lprime<-function(theta, x){
   n=length(x)
   sum=0
@@ -29,16 +30,16 @@ cauchy_ldprime(0, x)
 
 tol=1e-6
 
-# cauchy_mle<-function(x, tol){
-#   theta.current=median(x)
-#   while(TRUE){
-#     theta.new = theta.current - cauchy_lprime(theta.current, x) / cauchy_ldprime(theta.current, x)
-#     if(abs(cauchy_lprime(theta.new,x))<tol ) break
-#     #if(abs(theta.new-theta.current)<tol) break
-#     theta.current = theta.new
-#   }
-#   return(theta.new)
-# }
+cauchy_mle<-function(x, tol){
+  theta.current=median(x)
+  while(TRUE){
+    theta.new = theta.current - cauchy_lprime(theta.current, x) / cauchy_ldprime(theta.current, x)
+    if(abs(cauchy_lprime(theta.new,x))<tol ) break
+    #if(abs(theta.new-theta.current)<tol) break
+    theta.current = theta.new
+  }
+  return(theta.new)
+}
 
 # newton's method yield error due to calculation of second derivative
 # we will instead use secant method
@@ -342,7 +343,7 @@ gprime=function(theta, x1, x2){
 }
 
 # mix_mle<-function(x1,x2, tol){
-#   theta.current=(2*x1+x2)/20
+#   theta.current=(x1+2*x2)/40
 #   while(TRUE){
 #     theta.new = theta.current - lprime(theta.current, x1,x2) / ldprime(theta.current, x1,x2)
 #     if(abs(lprime(theta.new,x1,x2))<tol ) break
@@ -357,23 +358,23 @@ gprime=function(theta, x1, x2){
 # }
 
 
-# mix_mle<-function(x1,x2, tol){
-#   theta.current=(2*x1+x2)/20
-#   while(TRUE){
-#     theta.new = theta.current - g(theta.current, x1,x2) / gprime(theta.current, x1,x2)
-#     if(abs(g(theta.new,x1,x2))<tol ) break
-#     if(theta.new>1 | theta.new<0) {
-#       print("out of parameter sapce")
-#       break
-#     }
-#     #if(abs(theta.new-theta.current)<tol) break
-#     theta.current = theta.new
-#   }
-#   return(theta.new)
-# }
+mix_mle<-function(x1,x2, tol){
+  theta.current=(x1+2*x2)/40
+  while(TRUE){
+    theta.new = theta.current - g(theta.current, x1,x2) / gprime(theta.current, x1,x2)
+    if(abs(g(theta.new,x1,x2))<tol ) break
+    if(theta.new>1 | theta.new<0) {
+      print("out of parameter sapce")
+      break
+    }
+    #if(abs(theta.new-theta.current)<tol) break
+    theta.current = theta.new
+  }
+  return(theta.new)
+}
 
 # mix_mle<-function(x1,x2, tol){
-#   theta.past=(2*x1+x2)/20
+#   theta.past=(x1+2*x2)/40
 #   theta.current=theta.past - g(theta.past, x1,x2) / gprime(theta.past, x1,x2)
 #   while(TRUE){
 #     ratio = (g(theta.current, x1,x2)-g(theta.past, x1,x2)) / (theta.current-theta.past)
@@ -389,35 +390,36 @@ gprime=function(theta, x1, x2){
 #   return(theta.new)
 # }
 
-library(seqinr)
-
-mix_mle<-function(x1,x2, tol){
-  #theta.past=(2*x1+x2)/20
-  a=0
-  theta.past=a
-  theta.current=1
-  while(TRUE){
-    ratio = (g(theta.current, x1,x2)-g(theta.past, x1,x2)) / (theta.current-theta.past)
-    proposal = theta.current-g(theta.current, x1,x2) / ratio
-    middle=(a + theta.current)/2
-    if(middle<theta.current){
-      theta.new=ifelse(proposal<=theta.current & proposal>=middle, proposal, middle)
-    }
-    else{
-      theta.new=ifelse(proposal<=middle & proposal>=theta.current, proposal, middle)
-    }
-    if(abs(g(theta.new,x1,x2))<tol ) break
-    if(g(theta.new, x1, x2)*g(a, x1, x2)>0) a=theta.current
-    if(abs(g(theta.new,x1,x2))>abs(g(a, x1,x2)) ) swap(a, theta.new)
-    theta.past=theta.current
-    theta.current=theta.new
-
-  }
-  return(theta.new)
-}
-
+# library(seqinr)
+# 
+# mix_mle<-function(x1,x2, tol){
+#  
+#   a=0
+#   theta.past=a
+#   theta.current=1
+#   while(TRUE){
+#     ratio = (g(theta.current, x1,x2)-g(theta.past, x1,x2)) / (theta.current-theta.past)
+#     proposal = theta.current-g(theta.current, x1,x2) / ratio
+#     middle=(a + theta.current)/2
+#     if(middle<theta.current){
+#       theta.new=ifelse(proposal<=theta.current & proposal>=middle, proposal, middle)
+#     }
+#     else{
+#       theta.new=ifelse(proposal<=middle & proposal>=theta.current, proposal, middle)
+#     }
+#     if(abs(g(theta.new,x1,x2))<tol ) break
+#     if(g(theta.new, x1, x2)*g(a, x1, x2)>0) a=theta.current
+#     if(abs(g(theta.new,x1,x2))>abs(g(a, x1,x2)) ) swap(a, theta.new)
+#     theta.past=theta.current
+#     theta.current=theta.new
+# 
+#   }
+#   return(theta.new)
+# }
+# 
 
 
 
 mix_mle(x1, x2, tol)
+
 
