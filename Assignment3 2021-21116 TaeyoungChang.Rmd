@@ -207,12 +207,6 @@ cauchy_mle<-function(x, tol){
   return(theta.new)
 }
 
-# Function to calculate observed information bound
-cauchy_obs_info_bound<-function(x){
-  n=length(x)
-  obs_info = - cauchy_ldprime(cauchy_mle(x, tol), x)
-  return(1/obs_info)
-}
 ```
 
 To find MLE, we need to find a solution of likelihood equation. First, we have tried to use Newton's method.
@@ -246,7 +240,7 @@ for(i in 1:N){
     }
   }
   # Calculate observed information bound
-  obs_info_bound = cauchy_obs_info_bound(x)
+  obs_info_bound = -1/ cauchy_ldprime(mle, x)
   X[i,]=c(mle, obs_info_bound)
 }
 
@@ -364,7 +358,7 @@ for(i in 1:N){
     }
   }
   # Calculate observed information bound
-  obs_info_bound = cauchy_obs_info_bound(x)
+  obs_info_bound = -1/ cauchy_ldprime(mle, x)
   X[i,]=c(mle, obs_info_bound)
 }
 
@@ -430,7 +424,6 @@ n=100
 #error tolerance
 tol=1e-6
 
-set.seed(100)
 
 for(i in 1:N){
   # Generate sample of size n from cauchy(0,1)
@@ -446,7 +439,7 @@ for(i in 1:N){
     }
   }
   # Calculate observed information bound
-  obs_info_bound = cauchy_obs_info_bound(x)
+  obs_info_bound = -1/ cauchy_ldprime(mle, x)
   X[i,]=c(mle, obs_info_bound)
 }
 
