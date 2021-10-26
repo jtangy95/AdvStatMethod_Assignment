@@ -224,13 +224,13 @@ $$
 \begin{aligned}
   E[(\hat \mu_i-\mu_i)^2] &=  E[(\hat\mu_i-x_i)^2] - E[(x_i-\mu_i)^2]  + 2E[(\hat\mu_i-\mu_i)(x_i-\mu_i)] \\
   &=(N-3)E\Big[\frac{(N-3)(x_i-\overline{x})^2}{S^2} \Big] - 1 + 2\bigg\{1-(N-3)E\Big[\frac{(1-\frac{1}{N})S-2(x_i-\overline{x})^2}{S^2} \Big]  \bigg\} \\
-  &= 1 + E\Big[\frac{(N+1)(x_i-\overline{x})^2/S-2(1-\frac{1}{N})}{S} \Big] \\
-  &= E[(\hat\mu_i^{MLE}-\mu_i)^2] +E\bigg[\frac{(N+1)(x_i-\overline{x})^2/S-2(1-\frac{1}{N})}{S} \bigg]
+  &= 1 + (N-3) E\Big[\frac{(N+1)(x_i-\overline{x})^2/S-2(1-\frac{1}{N})}{S} \Big] \\
+  &= E[(\hat\mu_i^{MLE}-\mu_i)^2] +  (N-3)  E\bigg[\frac{(N+1)(x_i-\overline{x})^2/S-2(1-\frac{1}{N})}{S} \bigg]
 \end{aligned}
 $$  
 Hence, 
 $$
- E[(\hat \mu_i-\mu_i)^2]-E[(\hat\mu_i^{MLE}-\mu_i)^2] = E\bigg[\frac{(N+1)(x_i-\overline{x})^2/S-2(1-\frac{1}{N})}{S} \bigg]
+ E[(\hat \mu_i-\mu_i)^2]-E[(\hat\mu_i^{MLE}-\mu_i)^2] =  (N-3)  E\bigg[\frac{(N+1)(x_i-\overline{x})^2/S-2(1-\frac{1}{N})}{S} \bigg]
 $$
 We cannot guarantee that this expectation is positive or negative for every $i\in \{1, \cdots, N\}$ . For some $i$, this expectation may be strictly positive so that $E[(\hat \mu_i-\mu_i)^2] > E[(\hat\mu_i^{MLE}-\mu_i)^2]$ . This means that not every $\hat\mu_i^{JS}$ improves $\hat\mu_i^{MLE}$ . Especially, it can happen when $\mu_i$ is genuinely outstanding (whether in a positive or negative sense) compared to others.
 
