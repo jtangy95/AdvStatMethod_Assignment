@@ -108,7 +108,7 @@ $$
 S_L(P_{(i)})=n\hat\theta_{(\cdot)}-(n-1)\sum_{j\neq i} \frac{1}{n-1}\hat\theta_{(j)}=\sum_{j=1}^n \hat\theta_{(j)}-\sum_{j\neq i} \hat\theta_{(j)}=\hat\theta_{(i)}=S(P_{(i)}) 
 $$
 Now, we should consider what ideal bootstrap estimate is.
-For boootstrap estimate $\hat\theta^*=S(P^*)$ , ideal bootstrap estimate of variance of $\hat\theta$ can be written as $Var(S(P^*))$ where $P^*$ denotes the bootstrap resampling vector with the form $\frac{1}{n}(N_1, \cdots, N_n)$ and $nP^*\sim Multinomial(n, P_0)$  
+For boootstrap estimate $\hat{\theta^*}=S(P^*)$ , ideal bootstrap estimate of variance of $\hat\theta$ can be written as $Var(\hat{\theta^*})=Var(S(P^*))$ where $P^*$ denotes the bootstrap resampling vector with the form $\frac{1}{n}(N_1, \cdots, N_n)$ and $nP^*\sim Multinomial(n, P_0)$  
 Here, by the property of multinomial distribution, we have
 $$
 Var(nP^*)=n\begin{bmatrix} \text{Diag}(P_0)-P_0P_0^T\end{bmatrix}
@@ -135,7 +135,7 @@ S_L(P)= a-\mathbf{b}^T P =\hat\theta_{(\cdot)} -(n-1)\sum_{i=1}^n p_i(\hat\theta
 $$
 Hence, combining all the results above, the ideal bootstrap variance estimate of the sample mean $\overline{x}$ is given as 
 $$
-Var(S(P^*))=\frac{n-1}{n}\cdot \frac{\sum_{i=1}^n (x_i-\overline{x})^2}{n(n-1)}=\frac{1}{n^2}\sum_{i=1}^n (x_i-\overline{x})^2
+Var(\hat{\theta^*})=Var(S(P^*))=\frac{n-1}{n}\cdot \frac{\sum_{i=1}^n (x_i-\overline{x})^2}{n(n-1)}=\frac{1}{n^2}\sum_{i=1}^n (x_i-\overline{x})^2
 $$
 
 
