@@ -1,0 +1,545 @@
+% Copyright 2004 by Till Tantau <tantau@users.sourceforge.net>.
+%
+% In principle, this file can be redistributed and/or modified under
+% the terms of the GNU Public License, version 2.
+%
+% However, this file is supposed to be a template to be modified
+% for your own needs. For this reason, if you use this file as a
+% template and not specifically distribute it as part of a another
+% package/program, I grant the extra permission to freely copy and
+% modify this file as you see fit and even to delete this copyright
+% notice.
+
+\documentclass[11pt]{beamer}
+\usepackage{subcaption}
+\usepackage[english]{babel}
+\usepackage{arydshln}
+\usepackage{amsthm}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{multirow}
+\usepackage{caption}
+\usepackage{kotex}
+\usepackage{physics}
+\usepackage{bibentry}
+%\usepackage{mathtools}
+\usepackage{natbib}
+\bibliographystyle{unsrtnat}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=magenta,      
+    urlcolor=blue,
+    pdfpagemode=FullScreen,
+    }
+
+ % Top and bottom rules for table
+
+
+% There are many different themes available for Beamer. A comprehensive
+% list with examples is given here:
+% http://deic.uab.es/~iblanes/beamer_gallery/index_by_theme.html
+% You can uncomment the themes below if you would like to use a different
+% one:
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{boxes}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{default}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+\usecolortheme{rose}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%         문자에 액센트
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% % true
+% \newcommand{\thetat}{{\theta^t}}
+% \newcommand{\pt}{{p^t}}
+% \newcommand{\Et}{{\mathbb{E}^t}}
+% \newcommand{\Vt}{{\mathbb{V}ar^t}}
+
+
+% % hat
+% \newcommand{\dhat}{\hat{d}}
+% \newcommand{\fhat}{\hat{f}}
+% \newcommand{\ghat}{\hat{g}}
+% \newcommand{\hhat}{\hat{h}}
+% \newcommand{\mhat}{\hat{m}}
+% \newcommand{\phat}{\hat{p}}
+% \newcommand{\uhat}{\hat{u}}
+% \newcommand{\vhat}{\hat{v}}
+% \newcommand{\xhat}{\hat{x}}
+% \newcommand{\yhat}{\hat{y}}
+% \newcommand{\Fhat}{\hat{F}}
+% \newcommand{\Ghat}{\hat{G}}
+% \newcommand{\Hhat}{\hat{H}}
+% \newcommand{\Ihat}{\hat{I}}
+% \newcommand{\Vhat}{\hat{V}}
+% \newcommand{\Xhat}{\hat{X}}
+% \newcommand{\Yhat}{\hat{Y}}
+% \newcommand{\alphahat}{{\hat{\alpha}}}
+% \newcommand{\betahat}{{\hat{\beta}}}
+% \newcommand{\gammahat}{{\hat{\gamma}}}
+% \newcommand{\etahat}{{\hat{\eta}}}
+% \newcommand{\muhat}{{\hat{\mu}}}
+% \newcommand{\pihat}{{\hat{\pi}}}
+% \newcommand{\phihat}{{\hat{\phi}}}
+% \newcommand{\psihat}{{\hat{\psi}}}
+% \newcommand{\sigmahat}{{\hat{\sigma}}}
+% \newcommand{\thetahat}{{\hat{\theta}}}
+% \newcommand{\Sigmahat}{{\hat{\Sigma}}}
+
+% % bar
+% \newcommand{\pbar}{\bar{p}}
+% \newcommand{\xbar}{\bar{x}}
+% \newcommand{\ybar}{\bar{y}}
+% \newcommand{\zbar}{\bar{z}}
+% \newcommand{\Dbar}{\bar{D}}
+% \newcommand{\Tbar}{\bar{X}}
+% \newcommand{\Xbar}{\bar{X}}
+% \newcommand{\Ybar}{\bar{Y}}
+% \newcommand{\Zbar}{\bar{Z}}
+% \newcommand{\thetabar}{\bar{\theta}}
+% \newcommand{\etabar}{\bar{\eta}}
+
+% % tilde
+% \newcommand{\ptilde}{ \tilde{p}}
+% \newcommand{\Rtilde}{ \tilde{R}}
+% \newcommand{\Vtilde}{ \tilde{V}}
+% \newcommand{\Xtilde}{ \tilde{X}}
+% \newcommand{\Ytilde}{ \tilde{Y}}
+% \newcommand{\betatilde}{ \tilde{\beta}}
+% \newcommand{\mutilde}{ \tilde{\mu}}
+% \newcommand{\xitilde}{ \tilde{\xi}}
+% \newcommand{\thetatilde}{ \tilde{\theta}}
+% \newcommand{\sigmatilde}{ \tilde{\sigma}}
+% \newcommand{\Sigmatilde}{ \tilde{\Sigma}}
+% \newcommand{\Vartilde}{ \tilde{Var}}
+
+
+% % dot
+% \newcommand{\Edot}{ \dot{E}}
+% \newcommand{\Idot}{ \dot{I}}
+% \newcommand{\Rdot}{ \dot{R}}
+% \newcommand{\Sdot}{ \dot{S}}
+% \newcommand{\fdot}{ \dot{f}}
+% \newcommand{\xdot}{ \dot{x}}
+
+
+% % bold
+% \newcommand{\bfc}{\mathbf{c}}
+% \newcommand{\bff}{ \mathbf{f}}
+% \newcommand{\bfm}{ \mathbf{m}}
+% \newcommand{\bfn}{ \mathbf{n}}
+% \newcommand{\bfr}{ \mathbf{r}}
+% \newcommand{\bfs}{ \mathbf{s}}
+% \newcommand{\bft}{ \mathbf{t}}
+% \newcommand{\bfu}{ \mathbf{u}}
+% \newcommand{\bfw}{ \mathbf{w}}
+% \newcommand{\bfx}{ \mathbf{x}}
+% \newcommand{\bfy}{ \mathbf{y}}
+% \newcommand{\bfz}{ \mathbf{z}}
+% \newcommand{\bfE}{ \mathbf{E}}
+% \newcommand{\bfF}{ \mathbf{F}}
+% \newcommand{\bfO}{ \mathbf{O}}
+% \newcommand{\bfX}{ \mathbf{X}}
+% \newcommand{\bfY}{ \mathbf{Y}}
+% \newcommand{\bfZ}{\mathbf{Z}}
+% \newcommand{\bfzero}{{\bf 0}}
+% \newcommand{\bfone}{{\bf 1}}
+
+
+% % blackboard bold
+% \newcommand{\bbC}{{ \mathbb{C}}}
+% \newcommand{\bbE}{{ \mathbb{E}}}
+% \newcommand{\bbN}{ \mathbb{N}}
+% \newcommand{\bbP}{ \mathbb{P}}
+% \newcommand{\bbR}{ \mathbb{R}}
+% \newcommand{\bbX}{ \mathbb{X}}
+% \newcommand{\bbY}{ \mathbb{Y}}
+% \newcommand{\bbZ}{ \mathbb{Z}}
+
+% % caligraph
+% \newcommand{\calA}{\mathcal{A}}
+% \newcommand{\calB}{\mathcal{B}}
+% \newcommand{\calC}{\mathcal{C}}
+% \newcommand{\calD}{\mathcal{D}}
+% \newcommand{\calE}{\mathcal{E}}
+% \newcommand{\calF}{\mathcal{F}}
+% \newcommand{\calG}{\mathcal{G}}
+% \newcommand{\calH}{\mathcal{H}}
+% \newcommand{\calL}{\mathcal{L}}
+% \newcommand{\calM}{\mathcal{M}}
+% \newcommand{\calP}{\mathcal{P}}
+% \newcommand{\calQ}{\mathcal{Q}}
+% \newcommand{\calS}{\mathcal{S}}
+% \newcommand{\calT}{\mathcal{T}}
+% \newcommand{\calX}{ \mathcal{X}}
+% \newcommand{\calY}{\mathcal{Y}}
+% \newcommand{\calZ}{\mathcal{Z}}
+
+
+% % boldsymbol
+% \newcommand{\balpha}{ \boldsymbol{\alpha}}
+% \newcommand{\bbeta}{ \boldsymbol{\beta}}
+% \newcommand{\bepsilon}{ \boldsymbol{\epsilon}}
+% \newcommand{\blambda}{ \boldsymbol{\lambda}}
+% \newcommand{\bmu}{ \boldsymbol{\mu}}
+% \newcommand{\bnu}{ \boldsymbol{\nu}}
+% \newcommand{\bpi}{ \boldsymbol{\pi}}
+% \newcommand{\bphi}{ \boldsymbol{\phi}}
+% \newcommand{\bpsi}{ \boldsymbol{\psi}}
+% \newcommand{\btheta}{ \boldsymbol{\theta}}
+% \newcommand{\bomega}{ \boldsymbol{\omega}}
+% \newcommand{\bxi}{ \boldsymbol{\xi}}
+
+% \newcommand{\bed}{\begin{itemize}}
+% 	\newcommand{\eed}{\end{itemize}}
+% \newcommand{\vs}{\vspace}
+
+
+% \newcommand{\jsum}{\sum_{j=1}^{p}}
+
+
+% %\newcommand{\bfc}{\mathbf{c}}
+% %\newcommand{\bff}{ \mathbf{f}}
+% \newcommand{\bfg}{ \mathbf{g}}
+% %\newcommand{\bfm}{ \mathbf{m}}
+% %\newcommand{\bfn}{ \mathbf{n}}
+% \newcommand{\bfp}{ \mathbf{p}}
+% %\newcommand{\bfr}{ \mathbf{r}}
+% %\newcommand{\bfs}{ \mathbf{s}}
+% %\newcommand{\bft}{ \mathbf{t}}
+% %\newcommand{\bfu}{ \mathbf{u}}
+% \newcommand{\bfv}{ \mathbf{v}}
+% %\newcommand{\bfw}{ \mathbf{w}}
+% %\newcommand{\bfx}{ \mathbf{x}}
+% %\newcommand{\bfy}{ \mathbf{y}}
+% %\newcommand{\bfz}{ \mathbf{z}}
+% %\newcommand{\bfN}{ \mathbf{N}}
+% \newcommand{\bfI}{ \mathbf{I}}
+% \newcommand{\bfJ}{ \mathbf{J}}
+% %\newcommand{\bfE}{ \mathbf{E}}
+% %\newcommand{\bfF}{ \mathbf{F}}
+% %\newcommand{\bfO}{ \mathbf{O}}
+% %\newcommand{\bfS}{ \mathbf{S}}
+% \newcommand{\bfV}{ \mathbf{V}}
+% %\newcommand{\bfX}{ \mathbf{X}}
+% %\newcommand{\bfY}{ \mathbf{Y}}
+% %\newcommand{\bfZ}{\mathbf{Z}}
+% %\newcommand{\bfzero}{{\bf 0}}
+% %\newcommand{\bfone}{{\bf 1}}
+% %\newcommand{\balpha}{ \boldsymbol{\alpha}}
+% %\newcommand{\bbeta}{ \boldsymbol{\beta}}
+% %\newcommand{\bepsilon}{ \boldsymbol{\epsilon}}
+% \newcommand{\bvarepsilon}{ \boldsymbol{\varepsilon}}
+% %\newcommand{\blambda}{ \boldsymbol{\lambda}}
+% %\newcommand{\bmu}{ \boldsymbol{\mu}}
+% %\newcommand{\bnu}{ \boldsymbol{\nu}}
+% %\newcommand{\bpi}{ \boldsymbol{\pi}}
+% %\newcommand{\bphi}{ \boldsymbol{\phi}}
+% %\newcommand{\bpsi}{ \boldsymbol{\psi}}
+% %\newcommand{\btheta}{ \boldsymbol{\theta}}
+% %\newcommand{\bomega}{ \boldsymbol{\omega}}
+% %\newcommand{\bxi}{ \boldsymbol{\xi}}
+% \newcommand{\bfeta}{ \boldsymbol{\eta}}
+% \newcommand{\bsigma}{ \boldsymbol{\sigma}}
+% \newcommand{\bzero}{\boldsymbol{0}}
+% \newcommand{\bone}{\boldsymbol{1}}
+
+\newcommand{\rmk}{$\surd$}
+\newcommand{\sq}{$\square$}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\U}{\mathcal{U}}
+\newcommand{\V}{\mathcal{V}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\C}{\mathcal{C}}
+\newcommand{\open}{\underset{open}{\subset}}
+\newcommand{\closed}{\underset{closed}{\subset}}
+\newcommand{\subsp}{\underset{subsp}{\subset}}
+\newcommand{\seq}{\underset{seq}{\subset}}
+\newcommand{\cl}{\overline}
+\newcommand{\diff}{\,\backslash\,}
+\newcommand{\exist}{\exists\,}
+\newcommand{\homeo}{\underset{Homeo}{\simeq}}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+
+
+\title[Section 16.5 - 16.6]{Fitting Generalized Lasso Models and \\ Post-Selection Inference for the Lasso
+}
+
+% A subtitle is optional and this may be deleted
+%\subtitle{Optional Subtitle}
+
+\author{
+Taeyoung Chang
+}
+% - Give the names in the same order as the appear in the paper.
+% - Use the \inst{?} command only if the authors have different
+%   affiliation.
+
+% \institute[SNU] % (optional, but mostly needed)
+% {
+%   SNU\\
+%   Statistics
+% }
+% - Use the \inst command only if there are several affiliations.
+% - Keep it simple, no one is interested in your street address.
+
+\date{2021. 12. 2}
+% - Either use conference name or its abbreviation.
+% - Not really informative to the audience, more for people (including
+%   yourself) who are reading the slides online
+
+% \subject{Bayesian Nonparametric Function Estimation}
+% This is only inserted into the PDF information catalog. Can be left
+% out.
+
+% If you have a file called "university-logo-filename.xxx", where xxx
+% is a graphic format that can be processed by latex or pdflatex,
+% resp., then you can add a logo as follows:
+
+% \pgfdeclareimage[height=0.5cm]{university-logo}{university-logo-filename}
+% \logo{\pgfuseimage{university-logo}}
+
+\usepackage{graphicx}
+\graphicspath{ {./images/} } % 그림이 들어있는 디렉토리 지정.
+
+% Delete this, if you do not want the table of contents to pop up at
+% the beginning of each subsection:
+\AtBeginSection[]
+{
+  \begin{frame}<beamer>{CONTENTS}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+% Let's get started
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+% \begin{frame}{CONTENTS}
+%   \tableofcontents
+%   % You might wish to add the option [pausesections]
+% \end{frame}
+
+\section{Fitting Generalized Lasso Models}
+
+\begin{frame}{Notation}
+\begin{itemize}
+    \item $x_i$ : $p$-dimensional vector for $i$-th observation of predictor variables
+    \item $\mathbf{x}_j$ : $n$-dimensional vector for $j$-th predictor of $n$ observations
+    \item $s_j\in \text{sign}(\beta_j)$ : notation for sign function given as
+    $$s_j=\begin{cases}
+        1 & \beta_j>0 \\ -1 & \beta_j<0 \\ c_j \in [-1,1] & \beta_j=0
+    \end{cases} $$
+    \begin{itemize}
+        \item $\mathbf{s} = (s_1, \cdots, s_p)$
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Motivation}
+\begin{itemize}
+    \item So far we have focused on the Lasso for squared-error loss, and exloited the piecewise-lilnearity of its coefficient profile to efficiently compute the entire path.
+    \item Unfortunately this is not the case for most other loss functions.
+    \begin{itemize}
+        \item Obtaining the coefficient path is potentially more costly.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Logistic regression example}
+    \begin{itemize}
+        \item We will use logistic regression as an example.
+        \item Use loss function $L$ which is the negative log-likelihood.
+        \item The problem is given as 
+        $$\text{minimize}_{\beta\in \R^p\, ,\, \beta_0\in \R} \; -\Big\{\frac 1 n \sum_{i=1}^n y_i\log \mu_i +(1-y_i)\log(1-\mu_i)\Big\} + \lambda \|\beta\|_1$$
+        where $y_i\overset{indep}{\sim} \text{Bern}(\mu_i)\;$ and $\;\text{logit}(\mu_i)=\beta_0+x_i^T\beta\quad \forall \; i=1, \cdots, n$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{The solution satisfies the subgradient condition}
+    \begin{itemize}
+        \item As in the case of the lasso for squared-error loss , the solution satisfies the subgradient condition ( KKT condition ).
+        $$\frac{\partial}{\partial \beta}f(\beta, \beta_0)=\mathbf{0} \quad \text{and} \quad \frac{\partial}{\partial \beta_0}f(\beta, \beta_0)=0$$ where $f(\beta, \beta_0)$ is the given objective function.
+        \item We shall taking advantage of 
+        $$\frac{\partial}{\partial\beta}\mu_i = \mu_i(1-\mu_i)x_i \quad \text{and} \quad \frac{\partial}{\partial\beta_0}\mu_i = \mu_i(1-\mu_i)$$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Derivation of the subgradient condition}
+    \begin{itemize}
+        \item First condition
+        \begin{align*}
+            &\frac{\partial}{\partial \beta}f(\beta, \beta_0)=\mathbf{0} \\
+            &\Leftrightarrow \frac{\partial}{\partial \beta} -\frac 1 n \sum_{i=1}^n y_i\log \mu_i +(1-y_i)\log(1-\mu_i)+\lambda \|\beta\|_1 =\mathbf{0} \\ 
+            &\Leftrightarrow -\frac 1n \sum_{i=1}^n y_i(1-\mu_i)x_i - (1-y_i)\mu_i x_i + \lambda \mathbf{s} =\mathbf{0}\\
+            &\Leftrightarrow  -\frac 1n \sum_{i=1}^n (y_i-\mu_i)x_i  + \lambda \mathbf{s} =\mathbf{0}\\
+            &\Leftrightarrow -\frac 1n \langle \mathbf{x}_j, \mathbf{y}-\mathbf{\mu}\rangle + \lambda s_j=0\quad \forall \; j=1, \cdots p
+        \end{align*}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Derivation of the subgradient condition}
+    \begin{itemize}
+        \item Second condition
+        \begin{align*}
+            &\frac{\partial}{\partial \beta_0}f(\beta, \beta_0)=0 \\
+            &\Leftrightarrow \frac{\partial}{\partial \beta_0} -\frac 1 n \sum_{i=1}^n y_i\log \mu_i +(1-y_i)\log(1-\mu_i)+\lambda \|\beta\|_1 =0 \\ 
+            &\Leftrightarrow -\frac 1n \sum_{i=1}^n y_i(1-\mu_i) - (1-y_i)\mu_i   =0\\
+            &\Leftrightarrow  -\frac 1n \sum_{i=1}^n (y_i-\mu_i) =0\\
+            &\Leftrightarrow \frac 1n \sum_{i=1}^n y_i=\sum_{i=1}^n \mu_i
+        \end{align*}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Solution path on $\lambda$ grid}
+    \begin{itemize}
+        \item The nonlinearity of $\mu_i$ in $\beta_j$ results in piecewise nonlinear coefficient profiles.
+        \item Instead, we settle for a solution path on a sufficiently fine grid of values for $\lambda$
+        \item The largest value of $\lambda$ we need to consider is $$\lambda_{max}= \max_{j=1, \cdots p} |\langle \mathbf{x}_j, \mathbf{y}-\overline{y}\mathbf{1}\rangle|$$
+        \begin{itemize}
+            \item This is because it is the smallest value of $\lambda$ for which $\hat\beta=0$ and $\hat\beta_0=\text{logit}(\overline{y})$
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Solution path on $\lambda$ grid}
+    \begin{itemize}
+        \item A reasonable sequence is 100 values $\lambda_1>\lambda_2>\cdots >\lambda_{100}$ equally spaced on the log-scale from $\lambda_{max}$ down to $\varepsilon \lambda_{max}$ where $\varepsilon$ is some small fraction such as $0.001$
+        \item An approach that has proven to be surprisingly efficient is path-wise coordinate descent.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Coordinate descent}
+    \begin{itemize}
+        \item For the problem $$\text{minimize} \;f(\mathbf{x})$$ with convex and differentiable function $f:\R^m\rightarrow \R$ , coordinatewise minimization can yield a global minimization. $$f(\mathbf{x}^*+\delta e_i)\geq f(\mathbf{x}^*) \quad \forall\; \delta>0\; ,\; i=1, \cdots ,m \; \Rightarrow f(\mathbf{x}^*)=\min f(\mathbf{x})$$ where $e_i$ is the $i$-th standard basis vector of $\R^m$
+        \item Coordinate descent method is proceeded as the following : 
+        \begin{enumerate}
+            \item Take initial value $\mathbf{x}^{(0)}\in \R^m$
+            \item Iterate $$x_i^{(k)}=\text{argmin}_{x_i} f(x_1^{k}, \cdots, x_{i-1}^{(k)}, x_i, x_{i+1}^{(k-1)},\cdots,  x_m^{(k-1)})\quad \forall\; i=1, \cdots, m$$ for step $k=1, 2, \cdots $ and so on until convergence.
+        \end{enumerate}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Coordinate descent}
+    \begin{itemize}
+        \item Coordinate descent example : linear regression
+        \item $\text{minimize}\quad \frac 12 \|y-X\beta\|_2^2$ over $\beta_i$ with all $\beta_j\quad\forall \;j\neq i$ are fixed.
+        \item Using $\frac{\partial \beta}{\partial \beta_i} = e_i$ where $e_i$ is $i$-th standard basis of $\R^p$
+        \begin{align*}
+            &\hat \beta_i \;\text{minimizes}\; \frac 12 \|y-X\beta\|_2^2 \;\text{over}\; \beta_i \;\text{with all}\; \beta_j\quad\forall \;j\neq i \;\text{are fixed} \\
+            &\Leftrightarrow \frac{\partial}{\partial \beta_i}\frac 12 \|y-X\beta\|_2^2=0 \quad \text{at}\; \beta_i=\hat\beta_i \\
+            &\Leftrightarrow \frac{\partial\beta}{\partial \beta_i} \frac{\partial}{\partial \beta}\frac 12 \|y-X\beta\|_2^2=0 \quad \text{at}\; \beta_i=\hat\beta_i \\
+            &\Leftrightarrow e_i^T(X^TX\beta-X^Ty)=0 \quad \text{at}\; \beta_i=\hat\beta_i \\
+            &\Leftrightarrow \mathbf{x}_i^T(X\beta-y)=\mathbf{x}_i^T (X_i\beta_i + X_{-i}\beta_{-i} -y)=0 \quad \text{at}\; \beta_i=\hat\beta_i \\
+            &\Leftrightarrow \hat\beta_i=\frac{\mathbf{x}_i^T(y-X_{-i}\beta_{-i})}{\mathbf{x}_i^T\mathbf{x}_i}
+        \end{align*}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Coordinate descent}
+    \begin{itemize}
+        \item Coordinate descent example : the Lasso problem for squared-error loss
+        \item $\text{minimize}\quad \frac 12 \|y-X\beta\|_2^2+\lambda\|\beta\|_1$ over $\beta_i$ with all $\beta_j\quad\forall \;j\neq i$ are fixed.
+        \item By similar logic we used for the linear regression case , solution $\hat\beta_i$ should satisfy $$\hat\beta_i+\frac{\lambda}{\|\mathbf{x}_i\|_2^2}s_i=\frac{\mathbf{x}_i^T(y-X_{-i}\beta_{-i})}{\mathbf{x}_i^T\mathbf{x}_i} $$ 
+        \item  We have the solution $\hat\beta_i$ given as
+        $$\hat\beta_i = S_{\lambda / \|\mathbf{x}_i\|_2^2}\Big(\frac{\mathbf{x}_i^T(y-X_{-i}\beta_{-i})}{\mathbf{x}_i^T\mathbf{x}_i}\Big) $$ where $S_\lambda(x)$ is soft-thresholding defined as $$S_\lambda(x)=\begin{cases}
+            x-\lambda & \text{if}\; x> \lambda \\
+            0 & \text{if}\; -\lambda\leq x\leq \lambda \\
+            x+\lambda & \text{if}\; x<\lambda
+        \end{cases} $$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Pathwise coordinate descent}
+    \begin{itemize}
+        \item Outer loop
+        \begin{itemize}
+            \item Find optimal value $\beta$ for each $\lambda_k$ in the order of $\lambda_1>\lambda_2>\cdots > \lambda_{100}$
+            \item By starting at $\lambda_1$ ,  where all parameters are zero, we use warm starts in computing the solutions at the decreasing sequence of $\lambda$ values. 
+            \begin{itemize}
+                \item resulting $\beta$ for $\lambda_k$ is used as an initial value of coordinate descent algorithm for $\lambda_{k+1}$ 
+            \end{itemize}
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Pathwise coordinate descent}
+    \begin{itemize}
+        \item Inner loop
+        \begin{itemize}
+            \item For each value $\lambda_k$ , solve the lasso problem for one $\beta_j$ only, holding the others fixed. This is done by coordinate descent. One or several coordinate cycles are implemented until the estimates stabilize.
+            \item Store the nonzero coefficients in the active set $\A$. (The active set grows slowly as $\lambda$ decreases.)
+            \item Iterates coordinate descent using only those variables until convergence.
+            \item One more sweep through all the variables to check optimality conditions. If there is a variable not satisfying the condition, then add it in active set $\A$ and go back to the first step of inner loop.
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Comments}
+    \begin{itemize}
+        \item The R package glmnet employs a `proximal-Newton' strategy at each value $\lambda_k$, which takes advantage of a weighted least-squares and coordinate descent.
+        \item We can consider another penalty term called as `elastic net' penalty which bridges the gap between the lasso and ridge regression. It is defined as $$P_\alpha(\beta)=\frac 12 \{(1-\alpha)\|\beta\|_2^2 +\alpha \|\beta\|_1 \} $$ for some $\alpha\in [0,1]$
+    \end{itemize}
+\end{frame}
+
+\section{Post-selection Inference for the Lasso}
+\begin{frame}{Post-selection Inference}
+    \begin{itemize}
+        \item Inference is generally difficult for adaptively selected models.
+        \item Suppose we have fit a lasso regression model with a particular value for $\lambda$ , which ends up selecting a subset $\A$ of size $|\A|=k$ of $p$ available variables. 
+        \item Question : interest in the population regression parameters using the full set of $p$ predictors VS interest is restricted to the population regression parameters using only the subset $\A$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Post-selection Inference}
+    \begin{itemize}
+        \item Focus on the second case
+        \item The idea is to condition on the selected set $\A$ itself, and then perform conditional inference on the unrestricted (not lasso-shrunk) regression coefficients of the response on only the variables in $\A$
+        \item For the case of the lasso with squared-error loss, using the fact about convexity along with delicate Gaussian conditioning arguments, it leads to truncated Gaussian and t-distributions for parameters of interest.
+    \end{itemize}
+\end{frame}
+
+%\subsection<presentation>*{For Further Reading}
+\begin{frame}{Reference}
+    \nocite{efron_hastie_2016}
+    \bibliography{efron_hastie_2016}
+    \begin{itemize}
+        \item \href{http://www.stat.cmu.edu/~ryantibs/convexopt/lectures/coord-desc.pdf}{Lecture note for Coordinate Descent by Ryan Tibshirani}
+        \item \href{https://wikidocs.net/23714}{Convex optimization for All}
+    \end{itemize}
+\end{frame}
+
+\end{document}
