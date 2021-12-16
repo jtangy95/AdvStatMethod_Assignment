@@ -359,9 +359,9 @@ Taeyoung Chang
 \begin{itemize}
     \item $x_i$ : $p$-dimensional vector for $i$-th observation of predictor variables
     \item $\mathbf{x}_j$ : $n$-dimensional vector for $j$-th predictor of $n$ observations
-    \item $s_j\in \text{sign}(\beta_j)$ : notation for sign function given as
+    \item $s_j\in \text{sign}(\beta_j)$ : subgradient of $|\beta_j|$
     $$s_j=\begin{cases}
-        1 & \beta_j>0 \\ -1 & \beta_j<0 \\ c_j \in [-1,1] & \beta_j=0
+        1 & \beta_j>0 \\ -1 & \beta_j<0 \\ [-1,1] & \beta_j=0
     \end{cases} $$
     \begin{itemize}
         \item $\mathbf{s} = (s_1, \cdots, s_p)$
@@ -371,7 +371,7 @@ Taeyoung Chang
 
 \begin{frame}{Motivation}
 \begin{itemize}
-    \item So far we have focused on the Lasso for squared-error loss, and exloited the piecewise-lilnearity of its coefficient profile to efficiently compute the entire path.
+    \item So far we have focused on the Lasso for squared-error loss, and exloited the piecewise-linearity of its coefficient profile to efficiently compute the entire path.
     \item Unfortunately this is not the case for most other loss functions.
     \begin{itemize}
         \item Obtaining the coefficient path is potentially more costly.
@@ -391,7 +391,7 @@ Taeyoung Chang
 
 \begin{frame}{The solution satisfies the subgradient condition}
     \begin{itemize}
-        \item As in the case of the lasso for squared-error loss , the solution satisfies the subgradient condition ( KKT condition ).
+        \item As in the case of the lasso for squared-error loss , the solution should satisfy the subgradient condition.
         $$\frac{\partial}{\partial \beta}f(\beta, \beta_0)=\mathbf{0} \quad \text{and} \quad \frac{\partial}{\partial \beta_0}f(\beta, \beta_0)=0$$ where $f(\beta, \beta_0)$ is the given objective function.
         \item We shall taking advantage of 
         $$\frac{\partial}{\partial\beta}\mu_i = \mu_i(1-\mu_i)x_i \quad \text{and} \quad \frac{\partial}{\partial\beta_0}\mu_i = \mu_i(1-\mu_i)$$
@@ -427,7 +427,7 @@ Taeyoung Chang
 \begin{frame}{Solution path on $\lambda$ grid}
     \begin{itemize}
         \item The nonlinearity of $\mu_i$ in $\beta_j$ results in piecewise nonlinear coefficient profiles.
-        \item Instead, we settle for a solution path on a sufficiently fine grid of values for $\lambda$
+        \item Hence, we settle for a solution path on a sufficiently fine grid of values for $\lambda$
         \item The largest value of $\lambda$ we need to consider is $$\lambda_{max}= \max_{j=1, \cdots p} |\langle \mathbf{x}_j, \mathbf{y}-\overline{y}\mathbf{1}\rangle|$$
         \begin{itemize}
             \item This is because it is the smallest value of $\lambda$ for which $\hat\beta=0$ and $\hat\beta_0=\text{logit}(\overline{y})$
@@ -445,10 +445,16 @@ Taeyoung Chang
 \begin{frame}{Coordinate descent}
     \begin{itemize}
         \item For the problem $$\text{minimize} \;f(\mathbf{x})$$ with convex and differentiable function $f:\R^m\rightarrow \R$ , coordinatewise minimization can yield a global minimization. $$f(\mathbf{x}^*+\delta e_i)\geq f(\mathbf{x}^*) \quad \forall\; \delta>0\; ,\; i=1, \cdots ,m \; \Rightarrow f(\mathbf{x}^*)=\min f(\mathbf{x})$$ where $e_i$ is the $i$-th standard basis vector of $\R^m$
+        \item We can also use coordinate descent for the problem $$\text{minimize} \;f(\mathbf{x})$$ where $f(\mathbf{x})=g(\mathbf{x})+h(\mathbf{x})=g(\mathbf{x})+\sum_{i=1}^n h_i(x_i)$ with $g$ being convex and differentiable and $h_i$ being convex. Here, the nonsmooth part $h$ is called separable
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Coordinate descent}
+    \begin{itemize}
         \item Coordinate descent method is proceeded as the following : 
         \begin{enumerate}
             \item Take initial value $\mathbf{x}^{(0)}\in \R^m$
-            \item Iterate $$x_i^{(k)}=\text{argmin}_{x_i} f(x_1^{k}, \cdots, x_{i-1}^{(k)}, x_i, x_{i+1}^{(k-1)},\cdots,  x_m^{(k-1)})\quad \forall\; i=1, \cdots, m$$ for step $k=1, 2, \cdots $ and so on until convergence.
+            \item Iterate $$x_i^{(k)}=\text{argmin}_{x_i} f(x_1^{(k)}, \cdots, x_{i-1}^{(k)}, x_i, x_{i+1}^{(k-1)},\cdots,  x_m^{(k-1)})\quad \forall\; i=1, \cdots, m$$ for step $k=1, 2, \cdots $ and so on until convergence.
         \end{enumerate}
     \end{itemize}
 \end{frame}
@@ -475,7 +481,7 @@ Taeyoung Chang
         \item $\text{minimize}\quad \frac 12 \|y-X\beta\|_2^2+\lambda\|\beta\|_1$ over $\beta_i$ with all $\beta_j\quad\forall \;j\neq i$ are fixed.
         \item By similar logic we used for the linear regression case , solution $\hat\beta_i$ should satisfy $$\hat\beta_i+\frac{\lambda}{\|\mathbf{x}_i\|_2^2}s_i=\frac{\mathbf{x}_i^T(y-X_{-i}\beta_{-i})}{\mathbf{x}_i^T\mathbf{x}_i} $$ 
         \item  We have the solution $\hat\beta_i$ given as
-        $$\hat\beta_i = S_{\lambda / \|\mathbf{x}_i\|_2^2}\Big(\frac{\mathbf{x}_i^T(y-X_{-i}\beta_{-i})}{\mathbf{x}_i^T\mathbf{x}_i}\Big) $$ where $S_\lambda(x)$ is soft-thresholding defined as $$S_\lambda(x)=\begin{cases}
+        $$\hat\beta_i = S_{\lambda / \|\mathbf{x}_i\|_2^2}\Big(\frac{\mathbf{x}_i^T(y-X_{-i}\beta_{-i})}{\mathbf{x}_i^T\mathbf{x}_i}\Big) = \frac{1}{\mathbf{x}_i^T\mathbf{x}_i}S_\lambda\big(\mathbf{x}_i^T(y-X_{-i}\beta_{-i})\big) $$ where $S_\lambda(x)$ is soft-thresholding defined as $$S_\lambda(x)=\begin{cases}
             x-\lambda & \text{if}\; x> \lambda \\
             0 & \text{if}\; -\lambda\leq x\leq \lambda \\
             x+\lambda & \text{if}\; x<\lambda
@@ -512,6 +518,10 @@ Taeyoung Chang
     \begin{itemize}
         \item The R package glmnet employs a `proximal-Newton' strategy at each value $\lambda_k$, which takes advantage of a weighted least-squares and coordinate descent.
         \item We can consider another penalty term called as `elastic net' penalty which bridges the gap between the lasso and ridge regression. It is defined as $$P_\alpha(\beta)=\frac 12 \{(1-\alpha)\|\beta\|_2^2 +\alpha \|\beta\|_1 \} $$ for some $\alpha\in [0,1]$
+        \begin{itemize}
+            \item When the predictors are excessively correlated, the lasso performs somewhat poorly. 
+            \item Elastic net can be used as an alternative in that case
+        \end{itemize}
     \end{itemize}
 \end{frame}
 

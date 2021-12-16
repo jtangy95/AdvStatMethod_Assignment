@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.8.12)  29 NOV 2021 15:42
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.8.12)  1 DEC 2021 23:46
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -977,26 +977,33 @@ LaTeX Font Info:    Font shape `OT1/cmss/b/n' in size <14.4> not available
 
 ] [11
 
-] [12
+]
+Overfull \hbox (0.34016pt too wide) detected at line 460
+\OT1/mathkerncmss/m/sl/10 x[] \OT1/cmss/m/n/10 = [][]\OT1/mathkerncmss/m/sl/10 f\OT1/cmss/m/n/10 (\OT1/mathkerncmss/m/sl/10 x[]\OML/cmm/m/it/10 ; []  ; \OT1/mathkerncmss/m/sl/10 x[]\OML/cmm/m/it/10 ; \OT1/mathkerncmss/m/sl/10 x[]\OML/cmm/m/it/10 ; \OT1/mathkerncmss/m/sl/10 x[]\OML/cmm/m/it/10 ; []  ; \OT1/mathkerncmss/m/sl/10 x[]\OT1/cmss/m/n/10 ) \OMS/cmsy/m/n/10 8 \OT1/mathkerncmss/m/sl/10 i \OT1/cmss/m/n/10 = 1\OML/cmm/m/it/10 ; []  ; \OT1/mathkerncmss/m/sl/10 m
+ []
+
+[12
 
 ] [13
 
+] [14
+
 ]
 LaTeX Font Info:    Font shape `OT1/cmss/b/n' in size <9> not available
-(Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 497.
- [14
-
-] [15
+(Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 503.
+ [15
 
 ] [16
 
-] (/Users/changtaeyeong/Desktop/Adv_Sta_Methods/AdvStatMethod_Assignment/LassoPresentation.toc) [17
+] [17
 
-] [18
+] (/Users/changtaeyeong/Desktop/Adv_Sta_Methods/AdvStatMethod_Assignment/LassoPresentation.toc) [18
 
 ] [19
 
-] (/Users/changtaeyeong/Desktop/Adv_Sta_Methods/AdvStatMethod_Assignment/LassoPresentation.bbl) [20
+] [20
+
+] (/Users/changtaeyeong/Desktop/Adv_Sta_Methods/AdvStatMethod_Assignment/LassoPresentation.bbl) [21
 
 ]
 \tf@nav=\write6
@@ -1013,18 +1020,18 @@ Package rerunfilecheck Info: File `LassoPresentation.out' has not changed.
 (rerunfilecheck)             Checksum: C4A5258391B85621923B8CBAAE051E82;550.
  ) 
 Here is how much of TeX's memory you used:
- 24573 strings out of 478994
- 449702 string characters out of 5858184
+ 24577 strings out of 478994
+ 449737 string characters out of 5858184
  760855 words of memory out of 5000000
- 41453 multiletter control sequences out of 15000+600000
+ 41455 multiletter control sequences out of 15000+600000
  420285 words of font info for 87 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  131i,15n,132p,514b,707s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss9.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on /Users/changtaeyeong/Desktop/Adv_Sta_Methods/AdvStatMethod_Assignment/LassoPresentation.pdf (20 pages, 192986 bytes).
+Output written on /Users/changtaeyeong/Desktop/Adv_Sta_Methods/AdvStatMethod_Assignment/LassoPresentation.pdf (21 pages, 195592 bytes).
 PDF statistics:
- 665 PDF objects out of 1000 (max. 8388607)
- 603 compressed objects within 7 object streams
- 45 named destinations out of 1000 (max. 500000)
+ 691 PDF objects out of 1000 (max. 8388607)
+ 628 compressed objects within 7 object streams
+ 47 named destinations out of 1000 (max. 500000)
  127 words of extra memory for PDF output out of 10000 (max. 10000000)
 
